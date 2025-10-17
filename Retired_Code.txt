@@ -1,0 +1,180 @@
+//2025.10.17 and before:
+
+/*
+void DBG_Display_Index_In_Line(FILE *const Stream, char *String, size_t Index, char* Index_Name, int Indentation_Len)
+{
+	Utils_Assert(NULL != Stream);
+	Utils_Assert(NULL != String);
+	Utils_Assert(0 <= Indentation_Len);
+
+	for (size_t Itr_Indent = 0; Itr_Indent < Indentation_Len; Itr_Indent++) fputs(INDENT_1_LEVEL_STRING, Stream);
+	size_t Itr_Chr = 0;
+	for (; '\0' != String[Itr_Chr]; Itr_Chr++) putc(String[Itr_Chr], Stream);
+	//--indent--This is the written string.
+
+	putc('\n', Stream);
+	for (size_t Itr_Indent = 0; Itr_Indent < Indentation_Len; Itr_Indent++) fputs(INDENT_1_LEVEL_STRING, Stream);
+	for (size_t Itr_Chr_Marker = 0; Itr_Chr_Marker < Itr_Chr; Itr_Chr_Marker++)
+	{
+		if (Itr_Chr_Marker == Index)
+		{
+			fprintf(Stream, "^ %s", Index_Name);
+		}
+		else
+		{
+			putc(' ', Stream);
+		}
+	}
+
+	//--indent--This is the written string
+	//--indent--            ^
+
+	putc('\n', Stream);
+}*/
+
+
+/*
+void EXPERIMENT_Variadic_Arguments(void)
+{
+	printf("\n\nEXPERIMENT_Variadic_Arguments():\n\n");
+
+	int Integer_A = 99;
+	int Integer_Array[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
+	char Char_Array[] = "hi there\0this is the second string\0one more string\0final string";
+
+	const int Args_Cnt =
+		P_INT(Integer_A) +
+		P_IARR(Integer_Array, 10) +
+		P_STR("hello world!") +
+		P_STR(NULL) +
+		P_STR("second string") +
+		P_CARR(Char_Array, sizeof(Char_Array)) +
+		P_INT((int) { 66 }) +
+		P_INT((int) { 666 }) +
+		P_INT((int) { 6666 }) +
+		P_INT((int) { 66666 });
+
+	for (int Itr_Args_To_Pop = 0; Itr_Args_To_Pop < Args_Cnt; Itr_Args_To_Pop++)
+	{
+		variadic_arg This_Arg = Pop_Variadic_Arg(&G_VARIADIC_ARG_STACK);
+
+		switch (This_Arg.Type.Type_Enum)
+		{
+
+		case int_e:
+			if (NULL == This_Arg.Ptr)
+			{
+				StO_Print_F(SIZE_MAX, "as int %s : NULL!\n", This_Arg.Name);
+				continue;
+			}
+			StO_Print_F(SIZE_MAX, "as int %s : %i\n", This_Arg.Name, *(int*)This_Arg.Ptr);
+		break;
+
+		case int_array_e:
+			if (NULL == This_Arg.Ptr)
+			{
+				StO_Print_F(SIZE_MAX, "as int[] %s : NULL!\n");
+				continue;
+			}
+			StO_Print_F(SIZE_MAX, "as int[] %s : |", This_Arg.Name);
+			for (int Itr_Int = 0; Itr_Int < This_Arg.Type.Length; Itr_Int++)
+				StO_Print_F(SIZE_MAX, " %i |", *(((int*)This_Arg.Ptr)+Itr_Int));
+			StO_Print("\n");
+		break;
+
+		case string_e:
+			StO_Print_F(SIZE_MAX, "as char* %s : %s\n", This_Arg.Name, (char*)This_Arg.Ptr);
+		break;
+
+		case char_array_e:
+			if (NULL == This_Arg.Ptr)
+			{
+				StO_Print_F(SIZE_MAX, "as char[] %s : NULL!\n", This_Arg.Name);
+				continue;
+			}
+			StO_Print_F(SIZE_MAX, "as char[] %s : |", This_Arg.Name);
+			for (int Itr_Chr = 0; Itr_Chr < This_Arg.Type.Length; Itr_Chr++)
+				StO_Print_F(SIZE_MAX, " %c |", *(((char*)This_Arg.Ptr) + Itr_Chr));
+			StO_Print("\n");
+
+		break;
+
+		default:
+			StO_Print_F(SIZE_MAX, "Invalid Argument! Type: %i\n", This_Arg.Type.Type_Enum);
+		break;
+
+		}
+	}
+}*/
+
+
+/*
+void StO_Print_F(size_t String_Len, char * const Format_String, ...)
+{
+	va_list Args;
+	va_start(Args, Format_String);
+
+	for (size_t Itr_Chr = 0; '\0' != Format_String[Itr_Chr] && Itr_Chr < String_Len; Itr_Chr++)
+	{
+		//printf("Chr: '%c'\n", Format_String[Itr_Chr]);
+		//string format specifier \%s, string: `%s`\n
+		//                        ^
+		if ('\\' == Format_String[Itr_Chr])
+		{
+			Itr_Chr++;
+			if ('\0' == Format_String[Itr_Chr] || Itr_Chr >= String_Len) break;
+
+			const int Char_Res = Escaped_Char_To_Char(Format_String[Itr_Chr]);
+			if (-1 == Char_Res) continue; //no char sent
+
+			STD_OUT_SEND_CHAR((char)Char_Res);
+		}
+		else if ('%' == Format_String[Itr_Chr])
+		{
+			Itr_Chr++;
+			if ('\0' == Format_String[Itr_Chr] || Itr_Chr >= String_Len) break;
+
+			//%i
+			// ^
+			switch (Format_String[Itr_Chr])
+			{
+
+			case 'd':
+			case 'i':
+				(void)0;
+				int Int_Value = va_arg(Args, int);
+				//printf("format int: %i\n", Value);
+				char Str_Buffer[12] = { 0 };
+				Format_Int_As_Str(Int_Value, Str_Buffer);
+				StO_Print(Str_Buffer);
+			break;
+
+			case 's':
+				(void)0;
+				char* Str_Value = va_arg(Args, char*);
+				if (NULL == Str_Value)
+				{
+					StO_Print_S("NULL", 4);
+				}
+				else
+				{
+					StO_Print(Str_Value);
+				}
+			break;
+
+			case 'c':
+				STD_OUT_SEND_CHAR(va_arg(Args, int));
+			break;
+
+			}
+		}
+		else
+		{
+			STD_OUT_SEND_CHAR(Format_String[Itr_Chr]);
+		}
+
+	}
+
+	//va_arg(Args, int);
+	va_end(Args);
+}*/

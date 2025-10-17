@@ -1,0 +1,2 @@
+C:\Users\K. P\source\repos\General_Utils\x64\Debug\General_Utils.exe.lastcodeanalysissucceeded
+C:\Users\K. P\source\repos\General_Utils\General_Utils\x64\Debug\NativeCodeAnalysis.read.1.tlog

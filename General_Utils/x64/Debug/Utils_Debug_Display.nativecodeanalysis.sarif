@@ -1,0 +1,51 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "MSVC Code Analysis",
+          "version": "14.44.35213.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/k. p/source/repos/general_utils/utils_debug_display.c"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "ae55b5efe57cc18a830abfe7b03b8b9a2f0a96426ac77b46686b4a898db27235"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/k. p/source/repos/general_utils/utils.h"
+          },
+          "hashes": {
+            "sha-256": "85f2564975918b26c8a66e0a460d83343c630037840f8cfc912fd51f1fe3284d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/k. p/source/repos/general_utils/utils_config.h"
+          },
+          "hashes": {
+            "sha-256": "9dd5e50f267a09f1acfe9e600b474177a0d4ed63dcd59f59f30d6d9153e75d9c"
+          }
+        }
+      ]
+    }
+  ]
+}

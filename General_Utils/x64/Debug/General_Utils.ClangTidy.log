@@ -1,0 +1,58 @@
+﻿[1/5] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c.
+[2/5] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_Debug_Display.c.
+[3/5] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_String.c.
+[4/5] Processing file C:\Users\K. P\source\repos\General_Utils\Tests.c.
+[5/5] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_Variadics.c.
+C:\Users\K. P\source\repos\General_Utils\Tests.c:175:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  175 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:175:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  175 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:179:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  179 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:179:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  179 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:183:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  183 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:183:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  183 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:187:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  187 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Tests.c:187:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  187 |         memset(Out_Buffer, 0, 12);
+      |         ^~~~~~
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:29:41: warning: cast to smaller integer type 'int' from 'int *' [clang-diagnostic-pointer-to-int-cast]
+   29 |                         {.Arg_Type = int_e, .Member_Offset = (int)&(((command_set_gpio*)NULL)->GPIO_Id) },
+      |                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:30:41: warning: cast to smaller integer type 'int' from 'int *' [clang-diagnostic-pointer-to-int-cast]
+   30 |                         {.Arg_Type = int_e, .Member_Offset = (int)&(((command_set_gpio*)NULL)->Value) },
+      |                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:60:31: warning: passing 'const char *' to parameter of type 'char *' discards qualifiers [clang-diagnostic-incompatible-pointer-types-discards-qualifiers]
+   60 |                 Crr_Chr += Seek_Space_End_S(&String[Crr_Chr], Str_Len - Crr_Chr);
+      |                                             ^~~~~~~~~~~~~~~~
+Suppressed 2 warnings (2 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+C:\Users\K. P\source\repos\General_Utils\Utils.h:240:28: note: passing argument to parameter 'String' here
+  240 | int Seek_Space_End_S(char* String, int String_Len);
+      |                            ^
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:73:29: warning: passing 'const char *' to parameter of type 'char *' discards qualifiers [clang-diagnostic-incompatible-pointer-types-discards-qualifiers]
+   73 |                         int Res = Parse_Int_Save(&String[Crr_Chr], (int*)(Target_Struct_Ptr+This_Arg_Entry.Member_Offset), Str_Len - Crr_Chr);
+      |                                                  ^~~~~~~~~~~~~~~~
+C:\Users\K. P\source\repos\General_Utils\Utils.h:271:32: note: passing argument to parameter 'String' here
+  271 | int Parse_Int_Save(char* const String, int* const Out_Int_Value, int String_Len);
+      |                                ^
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:176:6: warning: incompatible pointer types passing 'command_types_union *' to parameter of type 'char *' [clang-diagnostic-incompatible-pointer-types]
+  176 |                                         &Ret_Command.Command_Union);
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\K. P\source\repos\General_Utils\Utils_Commands_And_Console.c:41:135: note: passing argument to parameter 'Target_Struct_Ptr' here
+   41 | bool Parse_Args_S(const char* const String, const int Str_Len, const cmd_arg_entry* Arg_Entry_Array, const int N_Of_Args, char* const Target_Struct_Ptr)
+      |                                                                                                                                       ^
+C:\Users\K. P\source\repos\General_Utils\Utils_String.c:171:5: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [clang-diagnostic-implicitly-unsigned-literal]
+  171 | #if 9999999999999999999 < INT_MAX
+      |     ^

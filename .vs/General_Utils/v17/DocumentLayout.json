@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\K. P\\source\\repos\\General_Utils\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Tests.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Tests.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Debug_Display.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils_Debug_Display.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Variadics.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils_Variadics.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_String.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils_String.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Commands_And_Console.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils_Commands_And_Console.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils_Config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DA5D3C2C-A923-4DE8-BFC6-0863E040A1CB}|General_Utils.vcxproj|solutionrelative:Utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": []
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "6c98b26f-4f48-4753-93cc-9a1612bde7ff",
+        "Display": 0,
+        "X": 35,
+        "Y": 29,
+        "Width": 684,
+        "Height": 530,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Tests.c",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Tests.c",
+              "RelativeDocumentMoniker": "Tests.c",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Tests.c",
+              "RelativeToolTip": "Tests.c",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAAAPsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-07T15:47:30.498Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Utils_Debug_Display.c",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Debug_Display.c",
+              "RelativeDocumentMoniker": "Utils_Debug_Display.c",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Debug_Display.c",
+              "RelativeToolTip": "Utils_Debug_Display.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-07T17:42:44.985Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Utils_Variadics.c",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Variadics.c",
+              "RelativeDocumentMoniker": "Utils_Variadics.c",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Variadics.c",
+              "RelativeToolTip": "Utils_Variadics.c",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAD8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-11T10:53:35.362Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Utils_String.c",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_String.c",
+              "RelativeDocumentMoniker": "Utils_String.c",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_String.c",
+              "RelativeToolTip": "Utils_String.c",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-14T13:13:17.27Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Utils_Commands_And_Console.c",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Commands_And_Console.c",
+              "RelativeDocumentMoniker": "Utils_Commands_And_Console.c",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Commands_And_Console.c",
+              "RelativeToolTip": "Utils_Commands_And_Console.c",
+              "ViewState": "AgIAADwAAAAAAAAAAAAQwFwAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-10-17T12:14:49.097Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Utils_Config.h",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Config.h",
+              "RelativeDocumentMoniker": "Utils_Config.h",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Config.h",
+              "RelativeToolTip": "Utils_Config.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-14T13:14:52.531Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Utils.h",
+              "DocumentMoniker": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils.h",
+              "RelativeDocumentMoniker": "Utils.h",
+              "ToolTip": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils.h",
+              "RelativeToolTip": "Utils.h",
+              "ViewState": "AgIAAN8BAAAAAAAAAAAAAPUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-14T13:11:54.649Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
