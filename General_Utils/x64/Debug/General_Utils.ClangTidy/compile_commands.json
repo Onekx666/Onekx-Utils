@@ -11,6 +11,16 @@
   },
   {
     "directory": "C:\\Users\\K. P\\source\\repos\\General_Utils",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/nologo \/W4 \/WX- \/diagnostics:column \/Od \/D CODE_ANALYSIS \/D _DEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/EHsc \/RTC1 \/MDd \/GS \/fp:precise \/permissive- \/Fo\"General_Utils\\x64\\Debug\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc   \"C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Errors.c\"",
+    "file": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Errors.c"
+  },
+  {
+    "directory": "C:\\Users\\K. P\\source\\repos\\General_Utils",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/nologo \/W4 \/WX- \/diagnostics:column \/Od \/D CODE_ANALYSIS \/D _DEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/EHsc \/RTC1 \/MDd \/GS \/fp:precise \/permissive- \/Fo\"General_Utils\\x64\\Debug\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc   \"C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Error_Strings.c\"",
+    "file": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_Error_Strings.c"
+  },
+  {
+    "directory": "C:\\Users\\K. P\\source\\repos\\General_Utils",
     "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/nologo \/W4 \/WX- \/diagnostics:column \/Od \/D CODE_ANALYSIS \/D _DEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/EHsc \/RTC1 \/MDd \/GS \/fp:precise \/permissive- \/Fo\"General_Utils\\x64\\Debug\\\\\" \/Gd \/TC --target=amd64-pc-windows-msvc   \"C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_String.c\"",
     "file": "C:\\Users\\K. P\\source\\repos\\General_Utils\\Utils_String.c"
   },

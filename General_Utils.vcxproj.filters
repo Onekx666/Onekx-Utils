@@ -30,6 +30,12 @@
     <ClCompile Include="Utils_Commands_And_Console.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils_Errors.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils_Error_Strings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">

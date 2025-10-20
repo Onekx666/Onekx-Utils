@@ -17,7 +17,7 @@ int Str_Len_NT(char* String)
 
 	int Itr_Chr = 0;
 	for (; '\0' != String[Itr_Chr]; Itr_Chr++);
-	
+
 	return Itr_Chr;
 }
 
@@ -68,7 +68,7 @@ bool SubStr_Str_NT(char* String, char* Sub_String)
 
 
 
-const char G_CONST_Space_Chars_Array[] = {' ', '\t', '\n', '\v', '\f', '\r'};
+const char G_CONST_Space_Chars_Array[] = { ' ', '\t', '\n', '\v', '\f', '\r' };
 
 bool Is_Space(char Char)
 {
@@ -84,7 +84,7 @@ bool Is_Space(char Char)
 
 
 
-int Seek_Space_End_S(char* String, int String_Len)
+int Seek_Space_End_S(const char* const String, int String_Len)
 {
 	Utils_Assert(NULL != String);
 
@@ -107,7 +107,7 @@ bool Is_Digit(char Char)
 ], ]][INTPTR_MAX_NEEDS_TO_BE_BIGGER_THEN_INT_MAX]
 #endif
 
-int Parse_Int_Save(char* const String, int *const Out_Int_Value, int String_Len)
+int Parse_Int_Save(const char* const String, int* const Out_Int_Value, int String_Len)
 {
 	Utils_Assert(NULL != String);
 	Utils_Assert(NULL != Out_Int_Value);
@@ -125,7 +125,7 @@ int Parse_Int_Save(char* const String, int *const Out_Int_Value, int String_Len)
 	else if ('+' == String[Crr_Chr])
 	{
 		Crr_Chr++;
-	} 
+	}
 	else if (!Is_Digit(String[Crr_Chr]))
 	{
 		return -1;
@@ -151,7 +151,7 @@ int Parse_Int_Save(char* const String, int *const Out_Int_Value, int String_Len)
 		*Out_Int_Value = Number * Sign;
 		return Crr_Chr; // a single digit would still be valid.
 	}
-		
+
 	// - 4089 or +4089
 	//    ^        ^
 	for (; Is_Digit(String[Crr_Chr]) && Crr_Chr < String_Len; Crr_Chr++)
@@ -159,7 +159,7 @@ int Parse_Int_Save(char* const String, int *const Out_Int_Value, int String_Len)
 		Number = Number * 10 + (String[Crr_Chr] - '0');
 		if ((+1 == Sign && Number > INT_MAX) || (-1 == Sign && Number > (-1 * (intptr_t)INT_MIN))) return -1;
 	}
-	
+
 	*Out_Int_Value = Number * Sign;
 	return Crr_Chr;
 }
@@ -169,10 +169,10 @@ int Parse_Int_Save(char* const String, int *const Out_Int_Value, int String_Len)
 //#define INT_MAX 10000000000000000000
 //  9223372036854775807 (INT64_MAX)
 #if 9999999999999999999 < INT_MAX
-],]][INT_MAX_TO_LARGE_FOR_Format_Int_As_Str]
+], ]][INT_MAX_TO_LARGE_FOR_Format_Int_As_Str]
 #endif // 9999999999999999999 < LONG
 
-void Format_Int_As_Str(int Integer, char * const Out_Buffer)
+void Format_Int_As_Str(int Integer, char* const Out_Buffer)
 {
 	//char INFO_STR[] = "9223372036854775807"; char[20] including null terminator
 
@@ -185,7 +185,7 @@ void Format_Int_As_Str(int Integer, char * const Out_Buffer)
 	int Itr_Chr = 0;
 	do {
 		int Digit_Value = Number % 10;
-		Internal_Buffer[Itr_Chr] = '0' + (char)(Digit_Value < 0 ? -1*Digit_Value : Digit_Value);
+		Internal_Buffer[Itr_Chr] = '0' + (char)(Digit_Value < 0 ? -1 * Digit_Value : Digit_Value);
 		Itr_Chr++;
 		Number /= 10;
 	} while (0 != Number);
@@ -202,7 +202,7 @@ void Format_Int_As_Str(int Integer, char * const Out_Buffer)
 	//copy digits in reverse with offset
 	for (int Itr_Chr_Rev = 0; Itr_Chr_Rev < Itr_Chr; Itr_Chr_Rev++)
 	{
-		Out_Buffer[Itr_Chr_Rev + Write_Offset] = Internal_Buffer[(Itr_Chr-1) - Itr_Chr_Rev];
+		Out_Buffer[Itr_Chr_Rev + Write_Offset] = Internal_Buffer[(Itr_Chr - 1) - Itr_Chr_Rev];
 	}
 
 #ifndef NDEBUG
@@ -212,6 +212,25 @@ void Format_Int_As_Str(int Integer, char * const Out_Buffer)
 #endif // !NDEBUG
 
 	return;
+}
+
+
+
+const char G_CONST_Hex_Digits[] = { '0','1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', };
+
+/*
+.Chars = hex digits of { Byte&11110000, Byte&00001111 }
+*/
+char_array_2 Byte_To_Hex(unsigned char Byte)
+{
+	return (char_array_2)
+	{
+		.Chars =
+		{
+			[0] = G_CONST_Hex_Digits[(Byte & 0xF0) >> 4],	//11110000
+			[1] = G_CONST_Hex_Digits[Byte & 0xF ],	//00001111
+		}
+	};
 }
 
 
@@ -226,7 +245,7 @@ const char G_CONST_Escape_Sequences[2][10] =
 Returns -1 if escape code not found.
 
 \[%]
- 
+
 returned as (int)'%'
 */
 int Escaped_Char_To_Char(char Char)
@@ -242,22 +261,27 @@ int Escaped_Char_To_Char(char Char)
 
 
 
-void StO_Print(char* const String)
+void StO_Print(const char* const String)
 {
 	for (int Itr_Chr = 0; '\0' != String[Itr_Chr]; Itr_Chr++) STD_OUT_SEND_CHAR(String[Itr_Chr]);
 }
 
 
 
-void StO_Print_S(char* const String, int String_Len)
+void StD_Print(const char* const String)
+{
+	for (int Itr_Chr = 0; '\0' != String[Itr_Chr]; Itr_Chr++) STD_DEBUG_SEND_CHAR(String[Itr_Chr]);
+}
+
+
+
+void StO_Print_S(const char* const String, int String_Len)
 {
 	for (int Itr_Chr = 0; '\0' != String[Itr_Chr] && Itr_Chr < String_Len; Itr_Chr++) STD_OUT_SEND_CHAR(String[Itr_Chr]);
 }
 
 
 
-/*
-*/
 void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args)
 {
 	Utils_Assert(NULL != Format_String);
@@ -265,7 +289,7 @@ void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args)
 	Utils_Assert(VARIADIC_ARG_STACK_LEN >= G_VARIADIC_ARG_STACK.Top_P1);
 
 	Pop_Go_Back_Variadic_Args(&G_VARIADIC_ARG_STACK, N_Of_Variadic_Args);
-	
+
 	arg_cnt Used_Args_Cnt = 0;
 	for (int Itr_Chr = 0; '\0' != Format_String[Itr_Chr]; Itr_Chr++)
 	{
@@ -309,7 +333,7 @@ void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args)
 				}
 				else
 				{
-					char Str_Buffer[12] = { 0 };
+					char Str_Buffer[FORMAT_INT_AS_STR_OUT_BUFFER_SIZE] = { 0 };
 					Format_Int_As_Str(*(int*)V_Arg.Ptr, Str_Buffer);
 					StO_Print(Str_Buffer);
 				}

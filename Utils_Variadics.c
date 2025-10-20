@@ -4,15 +4,16 @@
 
 
 
-#define VARIADIC_ARG_STACK_ERR { .Ptr = NULL, .Type = { .Type_Enum = err_none_e, .Length = 0 }, .Name = NULL };
+#define VARIADIC_ARG_STACK_ERR { .Ptr = NULL, .Type = { .Type_Enum = no_type_err_e, .Length = 0 }, .Name = NULL }
 
 
 
-short CHECK_Is_Int(const int I) { return 0 && I; }
-short CHECK_Is_Int_Array(const int Final_Int, const short Len) { return 0 && Final_Int && Len; }
-short CHECK_Is_Char(const char Char) { return 0 && Char; };
-short CHECK_Is_String(const char* String) { return 0 && String; };
-short CHECK_Is_Char_Array(const char* Char_Ptr, const char Final_Char, const short Len) { return 0 && Char_Ptr && Final_Char && Len; };
+short CHECK_Is_Int(const int I) { return 0 & I; }
+short CHECK_Is_Int_Array(const int Final_Int, const short Len) { return 0 & Final_Int & Len; }
+short CHECK_Is_Variable_Size_Int_Array(const char First_Byte, const char Final_Byte, const short Len) { return 0 & First_Byte & Final_Byte & Len; }
+short CHECK_Is_Char(const char Char) { return 0 & Char; };
+short CHECK_Is_String(const char* String) { return 0 & (intptr_t)String; };
+short CHECK_Is_Char_Array(const char* Char_Ptr, const char Final_Char, const short Len) { return 0 & (intptr_t)Char_Ptr & Final_Char & Len; };
 
 
 

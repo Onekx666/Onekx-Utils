@@ -27,7 +27,7 @@ typedef short arg_cnt;
 
 typedef enum
 {
-	err_none_e,
+	no_type_err_e,
 	bool_e,
 	bool_array_e,
 	int_e,
@@ -37,6 +37,7 @@ typedef enum
 	string_e,
 	size_e,
 	size_array_e,
+	var_size_int_array_e,
 	c_type_enum_max,
 } c_type_enum;
 
@@ -44,7 +45,9 @@ typedef enum
 
 typedef struct
 {
-	arg_cnt Length;
+	short Element_Size;
+	short Length;
+	short Stride;
 	short Type_Enum;
 } type_descriptor;
 
@@ -155,16 +158,52 @@ short CHECK_Is_Char(const char Chr);
 short CHECK_Is_String(const char* String);
 short CHECK_Is_Char_Array(const char* Char_Ptr, const char Final_Char, const short Len);
 
+/*
+CHECK_Is_Variable_Size_Int_Array():
 
-#define P_INT(Int) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int, .Ptr = &Int, .Type = (type_descriptor) { .Type_Enum = int_e | CHECK_Is_Int(Int), } })
+struct size: -------- or ........
+
+											 beginning of final BB
+												  V
+   --------........--------........--------........ : Struct_Size_Stride*(Len-1))+
+  ^                                               V
+--------........--------........--------........--------
+|	0	|	1	|	2	|	3	|	4	|	5	|	6	|
+AABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCC
+  ^                                                ^
+((char*)Member_Ptr)                                (((char*)Member_Ptr)+(Struct_Size_Stride*(Len-1))+sizeof(*Member_Ptr)-1)
+												   / beginning of final BB + sizeof(*Member_Ptr) - 1 = 1
+*/
+short CHECK_Is_Variable_Size_Int_Array(const char First_Byte, const char Final_Byte, const short Len);
+
+
+#define P_INT(Int) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int, .Ptr = &(int){ Int }, .Type = (type_descriptor) { .Type_Enum = int_e | CHECK_Is_Int(Int), } })
 
 #define P_CHR(Char) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char,.Ptr = &Char, .Type = (type_descriptor) { .Type_Enum = char_e | CHECK_Is_Char(Char), } })
 
-#define P_IARR(Int_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int_Array, .Ptr = Int_Array, .Type = (type_descriptor) { .Type_Enum = int_array_e | CHECK_Is_Int_Array(Int_Array[Len-1], Len), .Length = Len, } })
+#define P_STR(Char_Ptr) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Ptr, .Ptr = (void*)Char_Ptr, .Type = (type_descriptor) { .Type_Enum = string_e | CHECK_Is_String(Char_Ptr), } })
 
-#define P_STR(Char_Ptr) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Ptr, .Ptr = Char_Ptr, .Type = (type_descriptor) { .Type_Enum = string_e | CHECK_Is_String(Char_Ptr), } })
+#define P_IARR(Member_Ptr, Struct_Size_Stride, Len)\
+ Push_Variadic_Arg(\
+					&G_VARIADIC_ARG_STACK,\
+					(variadic_arg)\
+					{\
+						.Name = #Member_Ptr,\
+						.Ptr = Member_Ptr,\
+						.Type = (type_descriptor)\
+						{\
+							.Type_Enum = var_size_int_array_e | CHECK_Is_Variable_Size_Int_Array(*((char*)Member_Ptr), *(((char*)Member_Ptr)+(Struct_Size_Stride*(Len-1))+sizeof(*Member_Ptr)-1), Len),\
+							.Element_Size = sizeof(*Member_Ptr),\
+							.Stride = Struct_Size_Stride,\
+							.Length = Len,\
+						}\
+					}\
+				)
 
-#define P_CARR(Char_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Array, .Ptr = Char_Array, .Type = (type_descriptor) { .Type_Enum = char_array_e | CHECK_Is_Char_Array(Char_Array, Char_Array[Len-1], Len), .Length = Len, } })
+
+//#define P_IARR(Int_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int_Array, .Ptr = Int_Array, .Type = (type_descriptor) { .Type_Enum = int_array_e | CHECK_Is_Int_Array(Int_Array[Len-1], Len), .Length = Len, } })
+//#define P_CARR(Char_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Array, .Ptr = Char_Array, .Type = (type_descriptor) { .Type_Enum = char_array_e | CHECK_Is_Char_Array(Char_Array, Char_Array[Len-1], Len), .Length = Len, } })
+
 
 
 
@@ -237,7 +276,7 @@ String: text.    ^ this idx will be returned
 
 The returned length may invalid for indexing into String if whitespace continues to the end.
 */
-int Seek_Space_End_S(char* String, int String_Len);
+int Seek_Space_End_S(const char* const String, int String_Len);
 
 /*
 Scans till first null terminator. Returns length until terminator.
@@ -268,12 +307,15 @@ Str			Int
 
 -408[9]		-4089 (prev * 10 + 9)
 */
-int Parse_Int_Save(char* const String, int* const Out_Int_Value, int String_Len);
+int Parse_Int_Save(const char* const String, int* const Out_Int_Value, int String_Len);
 
 
+
+#define FORMAT_INT_AS_STR_OUT_BUFFER_SIZE 12
 
 /*
 The buffer needs to be at least as many digits as int max has +1, it also needs to be zero initialized.
+Set FORMAT_INT_AS_STR_BUFFER_SIZE to the appropriate number.
 After returning the buffer will contain a null-terminated string equivalent to the passed integer.
 
 Integer: -5022
@@ -293,13 +335,25 @@ add sign				`-5022` (50 % 10 = 0; Integer /= 10)
 */
 void Format_Int_As_Str(int Integer, char* const Out_Buffer);
 
+typedef struct
+{
+	char Chars[2];
+} char_array_2;
+
+/*
+.Chars = hex digits of { Byte&11110000, Byte&00001111 }
+*/
+char_array_2 Byte_To_Hex(unsigned char Byte);
+
 //void StO_Print_F(size_t String_Len, char* const Format_String, ...);
 
 //prints String to standard output until \0
-void StO_Print(char* const String);
+void StO_Print(const char* const String);
+
+void StD_Print(const char* const String);
 
 //sprints string to standard output up to including [String_Len-1] or until \0 is encountered.s
-void StO_Print_S(char* const String, int String_Len);
+void StO_Print_S(const char* const String, int String_Len);
 
 //
 void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args);
@@ -339,6 +393,57 @@ Chr: 34
 
 */
 void DBG_Display_Index_String_Multi_Line(char* String, size_t Str_Len, size_t Index);
+
+
+
+/*
+struct point		//offset
+{
+	int X,			//0
+	int Y,			//sizeof(int) (4)
+	int Z,			//sizeof(int)+sizeof(int) (8)
+};
+
+First_Member:	&Point_Array + sizeof(int) (4)
+
+stride:			sizeof(point): 12
+
+Len:			3
+
+IDX:|			0			|			1			|			2			|			3			|			4			|
+	|	X	|	Y	|	Z	|	X	|	Y	|	Z	|	X	|	Y	|	Z	|	X	|	Y	|	Z	|	X	|	Y	|	Z	|
+	|	23	|	13	|	-1	|	13	|	9	|	5	|	1	|	0	|	8	|	8	|	3	|	11	|	99	|	52	|	19	|
+				^						^						^						^						^
+Output:
+
+13		9		0		3		52
+
+*/
+void DBG_Display_Int_Member_Array(const void* const First_Member, int Member_Size, int Stride, int Len);
+
+
+
+/***+*************************************
+*										 *
+*			  ERROR HANDLING  			 *
+*										 *
+++***************************************/
+
+
+
+typedef struct
+{
+	short V;
+	short Number;
+} utl_error;
+
+
+
+extern const char* const G_CONST_Error_Strings[];
+
+
+
+utl_error PROC_Error(const error_enum Error_Type, arg_cnt N_Of_Variadic_Args);
 
 
 

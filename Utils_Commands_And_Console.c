@@ -26,8 +26,8 @@ const command_entry G_CONST_Command_Entry_Table[] =
 	{
 		.Arguments_Entry_Array = (cmd_arg_entry[2])
 		{
-			{.Arg_Type = int_e, .Member_Offset = (int)&(((command_set_gpio*)NULL)->GPIO_Id) },
-			{.Arg_Type = int_e, .Member_Offset = (int)&(((command_set_gpio*)NULL)->Value) },
+			{.Arg_Type = int_e, .Member_Offset = (int)(intptr_t) & (((command_set_gpio*)NULL)->GPIO_Id)},
+			{.Arg_Type = int_e, .Member_Offset = (int)(intptr_t) &(((command_set_gpio*)NULL)->Value) },
 		},
 		.Argument_Array_Len = 2,
 		.Name = "setgpio",
@@ -38,14 +38,14 @@ const command_entry G_CONST_Command_Entry_Table[] =
 
 
 
-bool Parse_Args_S(const char* const String, const int Str_Len, const cmd_arg_entry* Arg_Entry_Array, const int N_Of_Args, char* const Target_Struct_Ptr)
+bool Parse_Args_S(const char* const String, const int Str_Len, const cmd_arg_entry* Arg_Entry_Array, const int N_Of_Args, command_types_union* const Target_Struct_Ptr)
 {
 	Utils_Assert(NULL != String);
 	Utils_Assert(0 <= Str_Len);
 	Utils_Assert(!(0 < N_Of_Args) || NULL != Arg_Entry_Array);
 	Utils_Assert(0 <= N_Of_Args);
 	Utils_Assert(!(0 < N_Of_Args) || Arg_Entry_Array[N_Of_Args - 1].Arg_Type < c_type_enum_max);
-	Utils_Assert(!(0 < N_Of_Args) || Arg_Entry_Array[N_Of_Args-1].Arg_Type >= 0);
+	Utils_Assert(!(0 < N_Of_Args) || Arg_Entry_Array[N_Of_Args - 1].Arg_Type >= 0);
 	Utils_Assert(NULL != Target_Struct_Ptr);
 
 	int Crr_Chr = 0;
@@ -70,8 +70,8 @@ bool Parse_Args_S(const char* const String, const int Str_Len, const cmd_arg_ent
 		case int_e:
 
 			(void)0;
-			int Res = Parse_Int_Save(&String[Crr_Chr], (int*)(Target_Struct_Ptr+This_Arg_Entry.Member_Offset), Str_Len - Crr_Chr);
-			if (-1 == Res) 
+			int Res = Parse_Int_Save(&String[Crr_Chr], (int*)(((char*)Target_Struct_Ptr) + This_Arg_Entry.Member_Offset), Str_Len - Crr_Chr);
+			if (-1 == Res)
 				return false;
 			//12   1    "jeff"
 			//^
@@ -108,7 +108,7 @@ command StI_Console_Read_Update(console_line_buffer* Line_Buffer)
 			goto ret_cmd_processed_l;
 		}
 
-		Line_Buffer->Buffer[Line_Buffer->Chars_Got_Cnt] = Std_In_Chr;
+		Line_Buffer->Buffer[Line_Buffer->Chars_Got_Cnt] = (char)Std_In_Chr;
 		Line_Buffer->Chars_Got_Cnt++;
 		//StO_Print_V("got chr: %i\n", P_INT(Std_In_Chr));
 
@@ -169,8 +169,8 @@ command StI_Console_Read_Update(console_line_buffer* Line_Buffer)
 			{
 				//setgpio 12 1
 				//       ^idx passed to Parse_Args_S() 
-				bool Res = Parse_Args_S(&Line_Buffer->Buffer[Found_Command->Name_Len], 
-					Line_Buffer->Chars_Got_Cnt - Found_Command->Name_Len, 
+				bool Res = Parse_Args_S(&Line_Buffer->Buffer[Found_Command->Name_Len],
+					Line_Buffer->Chars_Got_Cnt - Found_Command->Name_Len,
 					Found_Command->Arguments_Entry_Array,
 					Found_Command->Argument_Array_Len,
 					&Ret_Command.Command_Union);
@@ -192,7 +192,7 @@ command StI_Console_Read_Update(console_line_buffer* Line_Buffer)
 		}
 	}
 
-	return (command){ .Type = cmd_none_e, };
+	return (command) { .Type = cmd_none_e, };
 
 ret_cmd_processed_l:
 	Line_Buffer->Chars_Got_Cnt = 0;
