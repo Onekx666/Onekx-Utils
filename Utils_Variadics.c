@@ -4,7 +4,7 @@
 
 
 
-#define VARIADIC_ARG_STACK_ERR { .Ptr = NULL, .Type = { .Type_Enum = no_type_err_e, .Length = 0 }, .Name = NULL }
+#define VARIADIC_ARG_STACK_ERR (variadic_arg) { .Ptr = NULL, .Type = { .Type_Enum = no_type_err_e, .Length = 0 }, .Name = NULL }
 
 
 
@@ -32,7 +32,7 @@ arg_cnt Push_Variadic_Arg(variadic_arg_stack* Stack, variadic_arg Arg)
 
 variadic_arg Pop_Variadic_Arg(variadic_arg_stack* Stack)
 {
-	if (0 == Stack->Top_P1) return (variadic_arg) VARIADIC_ARG_STACK_ERR;
+	if (0 == Stack->Top_P1) return  VARIADIC_ARG_STACK_ERR;
 
 	Stack->Top_P1--;
 
@@ -43,7 +43,7 @@ variadic_arg Pop_Variadic_Arg(variadic_arg_stack* Stack)
 
 variadic_arg UNSAFE_Pop_Reverse_Variadic_Arg(variadic_arg_stack* Stack)
 {
-	if (Stack->Top_P1 == VARIADIC_ARG_STACK_LEN) return (variadic_arg) VARIADIC_ARG_STACK_ERR;
+	if (Stack->Top_P1 == VARIADIC_ARG_STACK_LEN) return VARIADIC_ARG_STACK_ERR;
 
 	const arg_cnt Old_Top = Stack->Top_P1;
 	Stack->Top_P1++;
@@ -57,7 +57,15 @@ bool Pop_Go_Back_Variadic_Args(variadic_arg_stack* Stack, arg_cnt Walk_Back_Cnt)
 {
 	const int New_Top_P1 = Stack->Top_P1 - Walk_Back_Cnt;
 
-	if (New_Top_P1 < 0) return false;
+	if (New_Top_P1 < 0)
+	{
+		/*
+		Lol, I missed that still have to reset Top_P1, caused problems when an incorrect number of
+		args was passed to StO_Print_V.
+		*/
+		Stack->Top_P1 = 0;
+		return false;
+	}
 
 	Stack->Top_P1 = New_Top_P1;
 

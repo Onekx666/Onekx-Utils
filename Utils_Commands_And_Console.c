@@ -13,14 +13,14 @@ const command_entry G_CONST_Command_Entry_Table[] =
 		.Help_Description = "The none command \"CMD_NONE\" is a place holder when any diagnostic indicates its name this might indicate an error.\nThe command takes no arguments and does nothing",
 	},
 
-	[cmd_help_e] =
+	/*[cmd_help_e] =
 	{
 		.Arguments_Entry_Array = NULL,
 		.Argument_Array_Len = 0,
 		.Name = "help",
 		.Name_Len = 4,
 		.Help_Description = "help <command name> displays help messages, like this one on the command whose name is given in the brackets.",
-	},
+	},*/
 
 	[cmd_set_gpio_e] =
 	{
@@ -33,6 +33,24 @@ const command_entry G_CONST_Command_Entry_Table[] =
 		.Name = "setgpio",
 		.Name_Len = 7,
 		.Help_Description = "setGPIO <pin id> <value> sets the pin with <pin id> either to either on or off depending on value of <value>. 0 : off, !0 : on"
+	},
+
+	[cmd_shutdown_e] =
+	{
+		.Arguments_Entry_Array = NULL,
+		.Argument_Array_Len = 0,
+		.Name = "shutdown",
+		.Name_Len = 8,
+		.Help_Description = "shutdown shuts down the raspberry pi."
+	},
+
+	[cmd_reboot_e] =
+	{
+		.Arguments_Entry_Array = NULL,
+		.Argument_Array_Len = 0,
+		.Name = "reboot",
+		.Name_Len = 6,
+		.Help_Description = "reboot restarts the raspberry pi."
 	},
 };
 

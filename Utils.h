@@ -13,6 +13,17 @@
 
 
 
+#ifdef __cplusplus
+#define EXTERN extern "C"
+#endif // 
+#ifndef __cplusplus
+#define EXTERN extern
+#endif // !__cplusplus
+
+
+
+
+
 /***+************************************
 *										*
 *			VARIADIC ARGUMETNS			*
@@ -69,8 +80,10 @@ Top_P1: 3
 
 stack top: []
 
-	0		1		2		3		4		5
+    0       1       2       3       4       5
 | arg A | arg B |[arg C]|  ...  |  ...  |  ...  |
+
+{ 0 } is valid initial value.
 */
 typedef struct
 {
@@ -95,7 +108,7 @@ stack top: []
 
 if stack is full no arg will be pushed, zero will be returned.
 */
-arg_cnt Push_Variadic_Arg(variadic_arg_stack* Stack, variadic_arg Arg);
+EXTERN arg_cnt Push_Variadic_Arg(variadic_arg_stack* Stack, variadic_arg Arg);
 
 
 
@@ -111,7 +124,7 @@ stack top: []
 
 Popped: arg D
 */
-variadic_arg Pop_Variadic_Arg(variadic_arg_stack* Stack);
+EXTERN variadic_arg Pop_Variadic_Arg(variadic_arg_stack* Stack);
 
 
 
@@ -134,9 +147,9 @@ variadic_arg UNSAFE_Pop_Reverse_Variadic_Arg(variadic_arg_stack* Stack);
 
 
 /*
-returns true if stack was hih enough to walk, else returns false;
+returns true if stack was high enough to go back fully, else returns false;
 
-Walk_Back_Cnt: -3
+Walk_Back_Cnt: 3
 
 stack top: []
 
@@ -144,19 +157,16 @@ stack top: []
 
 |[arg A]| arg B | arg C | arg D | .... | .... |
 */
-bool Pop_Go_Back_Variadic_Args(variadic_arg_stack* Stack, arg_cnt Walk_Back_Cnt);
+EXTERN bool Pop_Go_Back_Variadic_Args(variadic_arg_stack* Stack, arg_cnt Walk_Back_Cnt);
 
 
 
-extern variadic_arg_stack G_Variadic_Arg_Stack;
 
-
-
-short CHECK_Is_Int(const int I);
-short CHECK_Is_Int_Array(const int Final_Int, const short Len);
-short CHECK_Is_Char(const char Chr);
-short CHECK_Is_String(const char* String);
-short CHECK_Is_Char_Array(const char* Char_Ptr, const char Final_Char, const short Len);
+EXTERN short CHECK_Is_Int(const int I);
+EXTERN short CHECK_Is_Int_Array(const int Final_Int, const short Len);
+EXTERN short CHECK_Is_Char(const char Chr);
+EXTERN short CHECK_Is_String(const char* String);
+EXTERN short CHECK_Is_Char_Array(const char* Char_Ptr, const char Final_Char, const short Len);
 
 /*
 CHECK_Is_Variable_Size_Int_Array():
@@ -174,14 +184,14 @@ AABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCCAABBCCCC
 ((char*)Member_Ptr)                                (((char*)Member_Ptr)+(Struct_Size_Stride*(Len-1))+sizeof(*Member_Ptr)-1)
 												   / beginning of final BB + sizeof(*Member_Ptr) - 1 = 1
 */
-short CHECK_Is_Variable_Size_Int_Array(const char First_Byte, const char Final_Byte, const short Len);
+EXTERN short CHECK_Is_Variable_Size_Int_Array(const char First_Byte, const char Final_Byte, const short Len);
 
 
-#define P_INT(Int) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int, .Ptr = &(int){ Int }, .Type = (type_descriptor) { .Type_Enum = int_e | CHECK_Is_Int(Int), } })
+#define P_INT(Int) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Ptr = &(Int), .Name = #Int, .Type = (type_descriptor) { .Type_Enum = int_e | CHECK_Is_Int(Int), } })
 
-#define P_CHR(Char) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char,.Ptr = &Char, .Type = (type_descriptor) { .Type_Enum = char_e | CHECK_Is_Char(Char), } })
+#define P_CHR(Char) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Ptr = &(Char), .Name = #Char, .Type = (type_descriptor) { .Type_Enum = char_e | CHECK_Is_Char(Char), } })
 
-#define P_STR(Char_Ptr) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Ptr, .Ptr = (void*)Char_Ptr, .Type = (type_descriptor) { .Type_Enum = string_e | CHECK_Is_String(Char_Ptr), } })
+#define P_STR(Char_Ptr) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Ptr = (void*)(Char_Ptr), .Name = #Char_Ptr, .Type = (type_descriptor) { .Type_Enum = string_e | CHECK_Is_String(Char_Ptr), } })
 
 #define P_IARR(Member_Ptr, Struct_Size_Stride, Len)\
  Push_Variadic_Arg(\
@@ -203,7 +213,6 @@ short CHECK_Is_Variable_Size_Int_Array(const char First_Byte, const char Final_B
 
 //#define P_IARR(Int_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Int_Array, .Ptr = Int_Array, .Type = (type_descriptor) { .Type_Enum = int_array_e | CHECK_Is_Int_Array(Int_Array[Len-1], Len), .Length = Len, } })
 //#define P_CARR(Char_Array, Len) Push_Variadic_Arg(&G_VARIADIC_ARG_STACK, (variadic_arg) { .Name = #Char_Array, .Ptr = Char_Array, .Type = (type_descriptor) { .Type_Enum = char_array_e | CHECK_Is_Char_Array(Char_Array, Char_Array[Len-1], Len), .Length = Len, } })
-
 
 
 
@@ -232,7 +241,7 @@ These are not equal:
 String :		`This`
 Sub_String :	`This is`
 */
-bool SubStr_Str_S(const char* String, size_t String_Len, const char* Sub_String, size_t Sub_String_Len);
+EXTERN bool SubStr_Str_S(const char* String, size_t String_Len, const char* Sub_String, size_t Sub_String_Len);
 
 /*
 Checks if the first strlen(Sub_String) String are equal to Sub_String.
@@ -251,12 +260,12 @@ Sub_String :	`This is0`
 String :		`This is the string, it is longer then the substring.0`
 Sub_String :	`That0`
 */
-bool SubStr_Str_NT(char* String, char* Sub_String);
+EXTERN bool SubStr_Str_NT(char* String, char* Sub_String);
 
 /*
 Is the char contained in G_CONST_Space_Chars.
 */
-bool Is_Space(char Char);
+EXTERN bool Is_Space(char Char);
 
 /*
 Seeks end of white space as defined by the Is_Space function in this library.
@@ -276,17 +285,17 @@ String: text.    ^ this idx will be returned
 
 The returned length may invalid for indexing into String if whitespace continues to the end.
 */
-int Seek_Space_End_S(const char* const String, int String_Len);
+EXTERN int Seek_Space_End_S(const char* const String, int String_Len);
 
 /*
 Scans till first null terminator. Returns length until terminator.
 */
-int Str_Len_NT(char* String);
+EXTERN int Str_Len_NT(char* String);
 
 /*
 Scans till first null terminator, while scanning at most Max_Len chars. Returns length until terminator.
 */
-int Str_Len_S(char* String, int Max_Len);
+EXTERN int Str_Len_S(char* String, int Max_Len);
 
 
 
@@ -307,7 +316,7 @@ Str			Int
 
 -408[9]		-4089 (prev * 10 + 9)
 */
-int Parse_Int_Save(const char* const String, int* const Out_Int_Value, int String_Len);
+EXTERN int Parse_Int_Save(const char* const String, int* const Out_Int_Value, int String_Len);
 
 
 
@@ -333,7 +342,7 @@ info / int				Out_Buffer
 reverse	and
 add sign				`-5022` (50 % 10 = 0; Integer /= 10)
 */
-void Format_Int_As_Str(int Integer, char* const Out_Buffer);
+EXTERN void Format_Int_As_Str(int Integer, char* const Out_Buffer);
 
 typedef struct
 {
@@ -348,15 +357,15 @@ char_array_2 Byte_To_Hex(unsigned char Byte);
 //void StO_Print_F(size_t String_Len, char* const Format_String, ...);
 
 //prints String to standard output until \0
-void StO_Print(const char* const String);
+EXTERN void StO_Print(const char* const String);
 
-void StD_Print(const char* const String);
+EXTERN void StD_Print(const char* const String);
 
 //sprints string to standard output up to including [String_Len-1] or until \0 is encountered.s
-void StO_Print_S(const char* const String, int String_Len);
+EXTERN void StO_Print_S(const char* const String, int String_Len);
 
 //
-void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args);
+EXTERN void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args);
 
 
 
@@ -392,7 +401,7 @@ Chr: 34
 
 
 */
-void DBG_Display_Index_String_Multi_Line(char* String, size_t Str_Len, size_t Index);
+EXTERN void DBG_Display_Index_String_Multi_Line(char* String, size_t Str_Len, size_t Index);
 
 
 
@@ -419,7 +428,7 @@ Output:
 13		9		0		3		52
 
 */
-void DBG_Display_Int_Member_Array(const void* const First_Member, int Member_Size, int Stride, int Len);
+EXTERN void DBG_Display_Int_Member_Array(const void* const First_Member, int Member_Size, int Stride, int Len);
 
 
 
@@ -427,7 +436,7 @@ void DBG_Display_Int_Member_Array(const void* const First_Member, int Member_Siz
 *										 *
 *			  ERROR HANDLING  			 *
 *										 *
-++***************************************/
+*****************************************/
 
 
 
@@ -439,11 +448,9 @@ typedef struct
 
 
 
-extern const char* const G_CONST_Error_Strings[];
 
 
-
-utl_error PROC_Error(const error_enum Error_Type, arg_cnt N_Of_Variadic_Args);
+EXTERN utl_error PROC_Error(const error_enum Error_Type, arg_cnt N_Of_Variadic_Args);
 
 
 
@@ -509,19 +516,9 @@ typedef struct
 *  command definitions  *
 ************************/
 
-#define COMMAND_NAME_MAX_LEN 8
 
-/*
-Enum values are used to index into entry table (Utils_Commands.c), make sure they line up.
-*/
-typedef enum
-{
-	cmd_none_e,
-	cmd_help_e,
-	cmd_set_gpio_e,
-	cmd_e_command_cnt,
-	cmd_parsing_failed_e,
-} command_type_enum;
+
+#define COMMAND_NAME_MAX_LEN 8
 
 
 
@@ -537,7 +534,6 @@ typedef struct
 	int GPIO_Id;
 	int Value;
 } command_set_gpio;
-
 
 
 
@@ -557,7 +553,7 @@ typedef struct
 
 typedef union
 {
-	command_help Cmd_Help;
+	//command_help Cmd_Help;
 	command_set_gpio Command_Set_GPIO;
 } command_types_union;
 
@@ -581,6 +577,7 @@ typedef struct
 } command;
 
 
+
 /****************************
 *        functions          *
 ****************************/
@@ -597,12 +594,26 @@ a command name followed by arguments separated by an arbitrary amount of whitesp
 Between some argument zero whitespace is permitted, eg.: quoted strings.
 
 If the command is invalid or the amount of received chars exceeds the limit of permissible number of chars,
-then a command with Type = cmd_e_command_cnt will be returned.
+then a command with Type = cmd_parsing_failed_e will be returned.
 
 If the return character has not yet been sent, cmd_none_e will be returned.
 
 TODO: make it handle more then just int arguments
 */
-command StI_Console_Read_Update(console_line_buffer* Line_Buffer);
+EXTERN command StI_Console_Read_Update(console_line_buffer* Line_Buffer);
+
+
+
+
+
+/***+************************************
+*										*
+*     GLOBAL VARIABLE DECLARATIONS      *
+*										*
+++**************************************/
+
+EXTERN variadic_arg_stack G_Variadic_Arg_Stack;
+
+EXTERN const char* const G_CONST_Error_Strings[];
 
 #endif // !UTILS_H

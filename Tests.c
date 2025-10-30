@@ -1,61 +1,4 @@
-//Created before 2025.10.07 1/:12 as Tests.c
-
-/*
-
-______2025.10.07______
-
-	16:45 to 19:50
-
-
-______2025.10.09______
-
-	19:11 to 20:26
-
-
-______2025.10.10______
-
-	10:40 to 11:35
-	11:43 to 14:50
-
-
-______2025.10.11______
-
-	11:49 to 12:05
-	12:10 to 13:27
-	13:43 to 14:32
-	16:10 to 16:53
-
-
-______2025.10.13______
-
-	19:44 to 19:56
-
-
-______2025.10.14______
-
-	14:23 to --:--
-
-
-______2025.10.17______
-
-	09:08 to 10:03
-ca. 11:55 to 13:16
-	13:21 to 15:38
-	16:21 to --:--
-
-
-_____2025.10.19_______
-
-ca. 11:30 to 14:37
-
-
-_____2025.10.20_______
-
-	17:26 to 20:21
-
-	library should be minimally operational now.
-
-*/
+//Created before 2025.10.07 17:12 as Tests.c
 
 
 
@@ -208,10 +151,10 @@ void TEST_Variadic_Arguments(void)
 {
 	printf("\n\nTEST_Variadic_Arguments():\n\n");
 
-	StO_Print_V("Name: %s section: %c Age: %i some numbers: %i %i %i %i %i\n",
+	StO_Print_V("Name: %s block: %c Age: %i some numbers: %i %i %i %i %i\n",
 		P_STR("Joe") +
 		P_CHR((char) { 'Q' }) +
-		P_INT((int) { -19 }) +
+		P_INT((int) { 19 }) +
 		P_INT((int) { -20 }) +
 		P_INT((int) { -21 }) +
 		P_INT((int) { -22 }) +
@@ -219,12 +162,12 @@ void TEST_Variadic_Arguments(void)
 		P_INT((int) { -24 }) +
 		P_INT((int) { -25 }));
 
-	StO_Print_V("2*\\%i: %d %i \\%c: %c \\%s: %s \\n not available: %i\\n", P_INT((int) { 12 }) + P_INT((int) { 24 }) + P_CHR((char) { 'i' }) + P_STR("hi"));
+	StO_Print_V("2*\\%i: %d %i \\%c: %c \\%s: %s \\n not available: %i\n", P_INT((int) { 12 }) + P_INT((int) { 24 }) + P_CHR((char) { 'i' }) + P_STR("hi"));
 
-	StO_Print_V("Name: %s section: %c Age: %i some numbers: %i %i %i %i %i\n",
+	StO_Print_V("Name: %s block: %c Age: %i some numbers: %i %i %i %i %i\n",
 		P_STR("Joe") +
 		P_CHR((char) { 'Q' }) +
-		P_INT((int) { -19 }) +
+		P_INT((int) { 19 }) +
 		P_INT((int) { -20 }) +
 		P_INT((int) { -21 }) +
 		P_INT((int) { -22 }) +
@@ -301,7 +244,7 @@ void TEST_DBG_Display_Int_Member_Array_AND_TEST_PROC_Error(void)
 		P_CHR((Array[0].B)) +
 		P_STR(String)
 	);
-	StO_Print_V("Err .Number: %i .Type: %i\n\n", P_INT(Err.Number) + P_INT(Err.V));
+	StO_Print_V("Err .Number: %i .Type: %i\n\n", P_INT((int) { Err.Number }) + P_INT((int) { Err.V }));
 
 	Err = PROC_Error(error_test2_e,
 		P_IARR(&(Array[0].V), sizeof(Array[0]), 5) +
@@ -309,7 +252,7 @@ void TEST_DBG_Display_Int_Member_Array_AND_TEST_PROC_Error(void)
 		P_CHR((Array[0].B)) +
 		P_STR(String)
 	);
-	StO_Print_V("Err .Number: %i .Type: %i\n", P_INT(Err.Number) + P_INT(Err.V));
+	StO_Print_V("Err .Number: %i .Type: %i\n", P_INT((int) { Err.Number }) + P_INT((int) { Err.V }));
 
 	
 }
@@ -325,75 +268,10 @@ int main(void)
 	TEST_Variadic_Arguments();
 	TEST_DBG_Display_Int_Member_Array_AND_TEST_PROC_Error();
 
+	TEST_StI_Console_Read_Update();
+
 	return 0;
 }
 
 
 
-/*
-thoughts on multi threaded error streams:
-
-
-Thread 1:
-
-		mutex locks stream A
-
-		-- threat 2 tries to write to A --
-
-		sets msg id (A) atomically to 3
-
-		writes "Err 56 : ..."
-
-		done writing
-
-		mutex unlocks stream A
-
-
-threat 2:
-
-		fails to mutex lock stream A
-
-		mutex locks stream B
-
-		reads msg id of stream A as 2
-
-		sets msg id (B) atomically to 3
-
-		Writes "Err 333 : ..."
-
-		-- threat 1 sets msg id (A) to 3 --
-
-		done writing
-
-		mutex unlocks stream B
-
-
-
-THERE NEED TO BE AS MANY SEPERATE STREAMS AS THREATS.
-
-I have shown that this is possible, although this solution is clunky it would work.
-It would be possible to approximately tell the order off errors, which is good enough,
-since multithreading means that I cannot guarantee a correct order of messages anyway.
-
-stream A:
-
-	most recent msg: 3
-
-	msg id				msg
-
-	1					...
-
-	2					...
-
-	3					Err 56 : ...
-
-
-stream B:
-
-	msg Id				msg
-
-	3					Err 333 : ...
-
-
-stream C:
-*/

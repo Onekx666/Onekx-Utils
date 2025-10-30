@@ -2,8 +2,9 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdarg.h>
+#include <limits.h>
 
 #include <assert.h>
 
@@ -103,7 +104,7 @@ bool Is_Digit(char Char)
 
 
 
-#if !(INT_MAX < INTPTR_MAX)
+#if !(INT_MAX <= INTPTR_MAX)
 ], ]][INTPTR_MAX_NEEDS_TO_BE_BIGGER_THEN_INT_MAX]
 #endif
 
@@ -169,7 +170,7 @@ int Parse_Int_Save(const char* const String, int* const Out_Int_Value, int Strin
 //#define INT_MAX 10000000000000000000
 //  9223372036854775807 (INT64_MAX)
 #if 9999999999999999999 < INT_MAX
-], ]][INT_MAX_TO_LARGE_FOR_Format_Int_As_Str]
+//], ]][INT_MAX_TO_LARGE_FOR_Format_Int_As_Str]
 #endif // 9999999999999999999 < LONG
 
 void Format_Int_As_Str(int Integer, char* const Out_Buffer)
@@ -309,7 +310,7 @@ void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args)
 
 			if (Used_Args_Cnt == N_Of_Variadic_Args)
 			{
-				printf("<not enough variadic args pushed>");
+				StO_Print("<not enough variadic args pushed>");
 				continue;
 			}
 
@@ -383,7 +384,7 @@ void StO_Print_V(const char* const Format_String, arg_cnt N_Of_Variadic_Args)
 	// a b [c] d e
 	// a b c [d] e
 	// a b c d [e]
-	//wee need to walk back again:
+	//we need to walk back again:
 	// [] a b c d e
 	Pop_Go_Back_Variadic_Args(&G_VARIADIC_ARG_STACK, N_Of_Variadic_Args);
 }

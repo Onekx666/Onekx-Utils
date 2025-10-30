@@ -5,30 +5,32 @@
 [5/7] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_String.c.
 [6/7] Processing file C:\Users\K. P\source\repos\General_Utils\Tests.c.
 [7/7] Processing file C:\Users\K. P\source\repos\General_Utils\Utils_Variadics.c.
-C:\Users\K. P\source\repos\General_Utils\Tests.c:186:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-  186 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:131:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  131 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:186:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
-  186 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+Suppressed 7 warnings (7 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+C:\Users\K. P\source\repos\General_Utils\Tests.c:131:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  131 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:190:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-  190 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:135:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  135 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:190:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
-  190 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:135:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  135 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:194:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-  194 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:139:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  139 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:194:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
-  194 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:139:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  139 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:198:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
-  198 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:143:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  143 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Tests.c:198:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
-  198 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
+C:\Users\K. P\source\repos\General_Utils\Tests.c:143:2: note: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11
+  143 |         memset(Out_Buffer, 0, FORMAT_INT_AS_STR_OUT_BUFFER_SIZE);
       |         ^~~~~~
-C:\Users\K. P\source\repos\General_Utils\Utils_String.c:171:5: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [clang-diagnostic-implicitly-unsigned-literal]
-  171 | #if 9999999999999999999 < INT_MAX
+C:\Users\K. P\source\repos\General_Utils\Utils_String.c:172:5: warning: integer literal is too large to be represented in a signed integer type, interpreting as unsigned [clang-diagnostic-implicitly-unsigned-literal]
+  172 | #if 9999999999999999999 < INT_MAX
       |     ^
